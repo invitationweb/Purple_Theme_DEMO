@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Digital - Purple Elegant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <style>
+        body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .bg-lavender { background-color: #f3f0f7; }
+        .text-purple-dark { color: #4a2c6a; }
+        .bg-purple-dark { background-color: #4a2c6a; }
+        
+        #cover {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80');
+            background-size: cover; background-position: center;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .cover-off { transform: translateY(-100%); }
+        .swiper { width: 100%; max-width: 500px; height: 350px; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; }
+        .maps-container { max-width: 600px; height: 250px; margin: 0 auto; }
+        
+        /* Gaya untuk List Ucapan */
+        #comment-list { max-height: 400px; overflow-y: auto; }
+        .comment-item { 
+            background: white; border-left: 4px solid #4a2c6a; 
+            padding: 1rem; border-radius: 8px; margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-lavender text-gray-800">
+
+    <audio id="bgMusic" loop>
+        <source src="music1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="cover">
+        <div class="text-center text-white p-6" data-aos="fade-up" data-aos-duration="1500">
+            <h2 class="text-xl uppercase tracking-widest mb-4">The Wedding Of</h2>
+            <h1 class="text-6xl font-serif mb-6">Aris & Amira</h1>
+            <p class="mb-8 italic text-lg">Kepada Bapak/Ibu/Saudara/i</p>
+            <button onclick="openInvitation()" class="bg-white text-purple-dark px-8 py-3 rounded-full font-semibold shadow-xl hover:scale-105 transition-transform">
+                <i class="fa-solid fa-envelope-open mr-2"></i> Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <main id="main-content">
+        
+        <section class="min-h-screen flex flex-col justify-center items-center text-center p-4 bg-white">
+            <div data-aos="zoom-in" data-aos-duration="1200" class="mb-6">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80" class="w-48 h-48 rounded-full object-cover border-4 border-purple-dark p-2 shadow-lg">
+            </div>
+            <h2 class="text-4xl font-serif text-purple-dark mb-4" data-aos="fade-up">Aris & Amira</h2>
+            
+            <div class="grid grid-cols-2 gap-x-8 gap-y-2 mb-6 text-sm" data-aos="fade-up">
+                <a href="#" class="text-purple-dark"><i class="fa-brands fa-instagram"></i> @aris_amira</a>
+                <a href="#" class="text-purple-dark"><i class="fa-brands fa-tiktok"></i> arisamira_real</a>
+                <a href="#" class="text-purple-dark"><i class="fa-brands fa-facebook"></i> Aris Amira</a>
+                <a href="#" class="text-purple-dark"><i class="fa-brands fa-youtube"></i> ArisAmira Vlogs</a>
+            </div>
+            <p class="text-gray-500 tracking-widest" data-aos="fade-in">25 DESEMBER 2025</p>
+        </section>
+
+        <section class="py-12 bg-purple-dark text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h3 class="mb-8 font-serif text-2xl tracking-widest" data-aos="fade-down">Menghitung Hari</h3>
+                <div class="flex justify-center gap-4 text-center">
+                    <div class="bg-white/10 p-4 rounded-lg w-20 backdrop-blur-sm" data-aos="flip-left">
+                        <span id="days" class="text-2xl font-bold">00</span>
+                        <p class="text-xs">Hari</p>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-lg w-20 backdrop-blur-sm" data-aos="flip-left" data-aos-delay="200">
+                        <span id="hours" class="text-2xl font-bold">00</span>
+                        <p class="text-xs">Jam</p>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-lg w-20 backdrop-blur-sm" data-aos="flip-left" data-aos-delay="400">
+                        <span id="minutes" class="text-2xl font-bold">00</span>
+                        <p class="text-xs">Menit</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-4">
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 mb-12 text-center">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-purple-dark" data-aos="fade-right">
+                    <h3 class="text-2xl font-serif text-purple-dark mb-4">Akad Nikah</h3>
+                    <p class="font-bold uppercase tracking-widest">08.00 - 10.00 WIB</p>
+                    <p class="text-sm text-gray-500 italic mt-2">Masjid Agung Al-Mubarak, Jakarta</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-purple-dark" data-aos="fade-left">
+                    <h3 class="text-2xl font-serif text-purple-dark mb-4">Resepsi</h3>
+                    <p class="font-bold uppercase tracking-widest">11.00 WIB - Selesai</p>
+                    <p class="text-sm text-gray-500 italic mt-2">Grand Ballroom Hotel Purple</p>
+                </div>
+            </div>
+
+            <div class="maps-container" data-aos="zoom-in-up">
+                <div class="bg-white p-2 rounded-2xl shadow-lg h-full border border-purple-dark/20 text-center">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15866.564949575823!2d106.8271528!3d-6.1753924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbd3945781a5%3A0xc078864a7842e47c!2sMonas!5e0!3m2!1sid!2sid!4v1715000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0; border-radius: 12px;"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white">
+            <div class="text-center mb-8" data-aos="fade-up">
+                <h2 class="text-3xl font-serif text-purple-dark italic text-center">Our Love Story</h2>
+            </div>
+            <div class="max-w-4xl mx-auto px-4" data-aos="zoom-in">
+                <div class="swiper mySwiperMain">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80"></div>
+                        <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&q=80"></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-4 bg-lavender">
+            <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg text-center border-t-8 border-purple-dark text-center" data-aos="fade-up">
+                <i class="fa-solid fa-gift text-4xl text-purple-dark mb-4"></i>
+                <h3 class="text-2xl font-serif text-purple-dark mb-6">Wedding Gift</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-lavender rounded-lg" data-aos="zoom-in">
+                        <p class="font-bold">BANK BCA</p>
+                        <p class="text-lg">1234567890</p>
+                        <p class="text-xs italic text-center text-center">a.n Aris Setiawan</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 px-4 bg-white text-center">
+            <div class="max-w-2xl mx-auto bg-lavender p-8 rounded-2xl shadow-lg mb-10" data-aos="fade-up">
+                <h3 class="text-2xl font-serif text-purple-dark mb-6 text-center text-center">Ucapan & Komentar</h3>
+                <form id="commentForm" class="space-y-4 text-center">
+                    <input type="text" id="userName" placeholder="Nama Anda" class="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-purple-dark" required>
+                    <textarea id="userMessage" placeholder="Tulis ucapan selamat..." class="w-full p-3 border rounded-lg h-32 outline-none focus:ring-2 focus:ring-purple-dark" required></textarea>
+                    <button type="submit" class="w-full bg-purple-dark text-white py-3 rounded-lg font-bold shadow-md hover:opacity-90 transition">Kirim Ucapan</button>
+                </form>
+            </div>
+
+            <div class="max-w-2xl mx-auto text-left" id="comment-list" data-aos="fade-up">
+                <div class="comment-item">
+                    <p class="font-bold text-purple-dark">Admin</p>
+                    <p class="text-sm text-gray-600 italic">Selamat berbahagia Aris & Amira! Semoga sakinah mawaddah warahmah.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-lavender text-center text-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 max-w-6xl mx-auto">
+                <img src="https://images.unsplash.com/photo-1522673607200-1648832cee98?auto=format&fit=crop&q=80" class="rounded-xl h-40 w-full object-cover" data-aos="zoom-in">
+                <img src="https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&q=80" class="rounded-xl h-40 w-full object-cover" data-aos="zoom-in" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80" class="rounded-xl h-40 w-full object-cover" data-aos="zoom-in" data-aos-delay="300">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80" class="rounded-xl h-40 w-full object-cover" data-aos="zoom-in" data-aos-delay="400">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-10 bg-purple-dark text-white text-center">
+        <p class="font-serif text-xl">Aris & Amira</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: false });
+
+        const swiperMain = new Swiper(".mySwiperMain", {
+            loop: true, autoplay: { delay: 3000 }, pagination: { el: ".swiper-pagination", clickable: true },
+        });
+
+        function openInvitation() {
+            document.getElementById('cover').classList.add('cover-off');
+            document.getElementById('bgMusic').play();
+            document.body.style.overflow = 'auto';
+            setTimeout(() => { AOS.refresh(); }, 500);
+        }
+        document.body.style.overflow = 'hidden';
+
+        // LOGIKA KIRIM UCAPAN (LANGSUNG MUNCUL DI BAWAH)
+        const commentForm = document.getElementById('commentForm');
+        const commentList = document.getElementById('comment-list');
+
+        commentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('userName').value;
+            const message = document.getElementById('userMessage').value;
+
+            // Buat elemen ucapan baru
+            const newComment = document.createElement('div');
+            newComment.className = 'comment-item';
+            newComment.innerHTML = `
+                <p class="font-bold text-purple-dark">${name}</p>
+                <p class="text-sm text-gray-600 italic">${message}</p>
+            `;
+
+            // Tambahkan ke daftar (paling atas)
+            commentList.prepend(newComment);
+
+            // Reset form
+            commentForm.reset();
+        });
+
+        const targetDate = new Date("Dec 25, 2025 08:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        }, 1000);
+    </script>
+</body>
+</html>
